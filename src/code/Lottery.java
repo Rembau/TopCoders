@@ -97,7 +97,7 @@ class Element implements Comparable<Element>{
 		System.out.println(figTF(1,0));
 	}
 	/**
-	 * 蛮力法，效率极低
+	 * 蛮力法，效率极低，
 	 * @param front 当前索引前面的数字
 	 * @param index 当前索引
 	 * @return
