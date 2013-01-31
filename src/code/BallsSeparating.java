@@ -108,20 +108,31 @@ public class BallsSeparating
 		return count;
 	}*/
 	public int minOperations(int[] red, int[] green, int[] blue){
-		int x = red.length;
-		int t=0;
+		if(red.length<3){
+			return -1;
+		}
+		int r=Integer.MAX_VALUE;
 		for (int i = 0; i < blue.length; i++) {
 			for (int j = 0; j < blue.length; j++) {
 				for (int j2 = 0; j2 < blue.length; j2++) {
-					t=0;
+					int t=0;
 					if(i==j || i==j2 || j==j2) continue;
 					for (int k = 0; k < blue.length; k++) {
-						
+						int gb=green[k]+blue[k];
+						int rb=red[k]+blue[k];
+						int rg=red[k]+green[k];
+						if(k==i) t+=(gb);
+						else if(k==j) t+=(rb);
+						else if(k==j2) t+=(rg);
+						else {
+							t+=Math.min(gb,Math.min(rb, rg));
+						}
 					}
+					r=t<r?t:r;
 				}
 			}
 		}
-		return t;
+		return r;
 	}
 	public static void main(String[] args)
 	{
@@ -131,8 +142,8 @@ public class BallsSeparating
 		int desiredAnswer;
 		
 		time = System.currentTimeMillis();
-		answer = new BallsSeparating().minOperations(new int[]{1, 1, 1, 340220}
-		, new int[]{600081, 390298, 376707, 372199}, new int[]{435097,  40266, 145590, 505103});
+		answer = new BallsSeparating().minOperations(new int[]{1, 1, 1}
+		, new int[]{1,1,1}, new int[]{1,1,1});
 		System.out.println("Time: " + (System.currentTimeMillis()-time)/1000.0 + " seconds");
 		desiredAnswer = 6;
 		System.out.println("Your answer:");
