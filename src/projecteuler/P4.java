@@ -3,10 +3,8 @@ package projecteuler;
 public class P4 {
 	public static void func(){
 		int x=0;
-		int c=0;
 		for (int i = 999; i > 100; i--) {
 			for (int j = 999; j > i; j--) {
-				c++;
 				int t = i*j;
 				if(x<t && is(t)){
 					x=t;
