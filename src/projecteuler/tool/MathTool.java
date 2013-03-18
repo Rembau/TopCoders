@@ -29,6 +29,9 @@ public class MathTool {
 		}
 		return 0;
 	}
+	/**
+	 * 获得m个素数，从小到大排列
+	 */
 	public static int[] generatePrime(int m){
 		int n = 10000000;
 		boolean d[] = new boolean[n];
