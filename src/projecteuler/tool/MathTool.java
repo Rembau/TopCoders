@@ -1,6 +1,7 @@
 package projecteuler.tool;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class MathTool {
 	/**
@@ -60,6 +61,34 @@ public class MathTool {
 			}
 		}
 		return v;
+	}
+	/**
+	 * 求阶乘
+	 */
+	public static long factorial(int n){
+		long r=1;
+		for (int i = 1; i <= n; i++) {
+			r*=i;
+		}
+		return r;
+	}
+	/**
+	 * 获得质因子
+	 */
+	public static LinkedList<Integer> getFactors(int num){
+		LinkedList<Integer> f = new LinkedList<Integer>();
+		int i=2;
+		while(num>=i){
+			//System.out.println(num);
+			while(num%i==0){
+				num=num/i;
+				//System.out.print(" "+i);
+				f.add(i);
+			}
+			i++;
+		}
+		//System.out.println();
+		return f;
 	}
 	public static void main(String[] args) {
 
