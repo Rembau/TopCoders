@@ -21,7 +21,8 @@ public class P24 {
 		while(num>=0){
 			int total = nums(num);
 			int i=1;
-			while(order>i*total){
+			while(order>i*total){   //当order == i*total ,剩下的数字中应该组装出最大的数
+									//此处没有考虑相等的情况，而是 下放到下面步骤中一步一步处理。
 				i++;
 			}
 			i--;
