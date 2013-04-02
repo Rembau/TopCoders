@@ -90,6 +90,12 @@ public class MathTool {
 		//System.out.println();
 		return f;
 	}
+	/**
+	 * 求得数字的位数
+	 */
+	public static int getDigitNum(int num){
+		return (int) Math.floor(Math.log10(num)+1);
+	}
 	public static void main(String[] args) {
 
 	}
