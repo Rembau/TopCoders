@@ -1,7 +1,4 @@
 package projecteuler;
-
-import java.util.Arrays;
-
 import projecteuler.tool.MathTool;
 
 public class P34 {
@@ -26,14 +23,13 @@ Note: as 1! = 1 and 2! = 2 are not sums they are not included.
 			r[0]=i;
 			f(1,i,f[i],r);
 		}
-		System.out.println(sumt);
+		System.out.println(sumt-1-2);
 	}
 	static void f(int i,int num,int sum,int r[]){
 		if(i>=7){
 			return ;
 		}
 		if(i == (Math.floor(Math.log10(sum)+1))){
-			Arrays.sort(r);
 			int rr[] = new int[i];
 			int k=0;
 			for (char ch : (sum+"").toCharArray()) {
@@ -46,24 +42,23 @@ Note: as 1! = 1 and 2! = 2 are not sums they are not included.
 					flag=false;
 				}
 			}
-			for (int j = 0; j < r.length; j++) {
-				System.out.print(r[j]);
-			}
-			System.out.println(" "+sum);
 			if(flag){
+				/*for (int j = 0; j < r.length; j++) {
+					System.out.print(r[j]);
+				}
+				System.out.println(" "+sum);
+				System.out.print(true);*/
 				sumt+=sum;
+				//System.out.println(sum+" ===== "+sumt+"=======");
 			}
 		}
 		for (int j = 0; j < 10; j++) {
-			if(num!=j){
-				int rr[] = new int[r.length+1];
-				
-				for (int k = 0; k < r.length; k++) {
-					rr[k] = r[k];
-				}
-				rr[r.length]=j;
-				f(i+1,j,sum+f[j],rr);
+			int rr[] = new int[r.length+1];
+			for (int k = 0; k < r.length; k++) {
+				rr[k] = r[k];
 			}
+			rr[r.length]=j;
+			f(i+1,j,sum+f[j],rr);
 		}
 	}
 	public static void main(String[] args) {
