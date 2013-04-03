@@ -21,11 +21,11 @@ public class P38 {
 		Arrays.fill(mark, false);
 		int r=0;
 		int dn=4;
-		int currdn=0;
-		LinkedList<Integer> nums= new LinkedList<Integer>();
-		int num=0;
 		while(true){
 			int n=9/dn;
+			LinkedList<Integer> nums= new LinkedList<Integer>();
+			int num=0;
+			int currdn=0;
 			while(currdn<dn){
 				for (int i = 9; i > 0; i--) {
 					if(nums.contains(new Integer(i))){
