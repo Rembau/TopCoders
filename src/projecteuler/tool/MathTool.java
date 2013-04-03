@@ -8,6 +8,9 @@ public class MathTool {
 	 * ÊÇ·ñÎªËØÊı
 	 */
 	public static boolean isFactor(int a){
+		if(a<2){
+			return false;
+		}
 		for(int i=2;i<=Math.sqrt(a);i++){
 			if(a%i==0){
 				return false;
