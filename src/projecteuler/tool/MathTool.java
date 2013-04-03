@@ -96,6 +96,27 @@ public class MathTool {
 	public static int getDigitNum(int num){
 		return (int) Math.floor(Math.log10(num)+1);
 	}
+	/**
+	 * 判断是否是回文
+	 */
+	public static boolean isP(char[] ch){
+		if(ch.length==1){
+			return true;
+		}
+		for (int i = 0; i < ch.length/2; i++) {
+			if(ch[i]!=ch[ch.length-i-1]){
+				return false;
+			}
+		}
+		return true;
+	}
+	public static boolean isP(int n){
+		String str = String.valueOf(n);
+		return isP(str);
+	}
+	public static boolean isP(String str){
+		return isP(str.toCharArray());
+	}
 	public static void main(String[] args) {
 
 	}
