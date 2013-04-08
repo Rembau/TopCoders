@@ -3,6 +3,8 @@ package projecteuler;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import projecteuler.tool.MathTool;
+
 public class P38 {
 /**
  * Take the number 192 and multiply it by each of 1, 2, and 3:
@@ -17,17 +19,34 @@ public class P38 {
  * concatenated product of an integer with (1,2, ... , n) where n > 1?
  */
 	public static void func(){
+		int max=0;
+		for (int i = 9999; i > 1; i--) {
+			int n=9/MathTool.getDigitNum(i);
+			String str ="";
+			for (int j = 1; j < n+1; j++) {
+				str+=j*i;
+			}
+			if(isSuit(str)){
+				max=Integer.valueOf(str)>max?Integer.valueOf(str):max;
+				System.out.println(i);
+			}
+		}
+		System.out.println(max);
+	}
+	public static void func1(){
 		boolean mark[] = new boolean[10];
 		Arrays.fill(mark, false);
 		int r=0;
 		int dn=4;
+		int lim[] = new int[dn];
+		Arrays.fill(lim, 9);
 		while(true){
 			int n=9/dn;
 			LinkedList<Integer> nums= new LinkedList<Integer>();
 			int num=0;
 			int currdn=0;
 			while(currdn<dn){
-				for (int i = 9; i > 0; i--) {
+				for (int i = lim[currdn]; i > 0; i--) {
 					if(nums.contains(new Integer(i))){
 						continue;
 					} else {
@@ -59,7 +78,7 @@ public class P38 {
 		return true;
 	}
 	public static void main(String[] args) {
-
+		func();
 	}
 
 }
