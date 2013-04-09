@@ -16,7 +16,7 @@ public class P41 {
 	static int rn=0;
 	public static void func(){
 		LinkedList<Integer> list = new LinkedList<Integer>();
-		for (int i = 1; i < 9; i++) {
+		for (int i = 1; i <= 9; i++) {
 			list.add(i);
 			f(list,i,1);
 			list.remove(new Integer(i));
@@ -32,7 +32,7 @@ public class P41 {
 		if(len==9){
 			return;
 		}
-		for (int i = 1; i < 9; i++) {
+		for (int i = 1; i <= 9; i++) {
 			if(list.contains(i)){
 				continue;
 			}
