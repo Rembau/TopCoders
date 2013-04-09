@@ -120,6 +120,41 @@ public class MathTool {
 	public static boolean isP(String str){
 		return isP(str.toCharArray());
 	}
+	/**
+	 * ¶þ·Ö²éÕÒ
+	 */
+	public static boolean binarySearch(long p[],long n){
+		int t=p.length;
+		int l=0;
+		int index;
+		while(t>l){
+			index=(t+l)/2;
+			if(n==p[index]){
+				return true;
+			} else if(n>p[index]){
+				l=index+1;
+			} else if(n<p[index]){
+				t=index-1;
+			}
+		}
+		return false;
+	}
+	public static boolean binarySearch(int p[],int n){
+		int t=p.length;
+		int l=0;
+		int index;
+		while(t>l){
+			index=(t+l)/2;
+			if(n==p[index]){
+				return true;
+			} else if(n>p[index]){
+				l=index+1;
+			} else if(n<p[index]){
+				t=index-1;
+			}
+		}
+		return false;
+	}
 	public static void main(String[] args) {
 
 	}
