@@ -134,7 +134,7 @@ public class MathTool {
 			} else if(n>p[index]){
 				l=index+1;
 			} else if(n<p[index]){
-				t=index-1;
+				t=index;
 			}
 		}
 		return false;
@@ -150,7 +150,7 @@ public class MathTool {
 			} else if(n>p[index]){
 				l=index+1;
 			} else if(n<p[index]){
-				t=index-1;
+				t=index;
 			}
 		}
 		return false;
