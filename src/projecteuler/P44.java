@@ -19,7 +19,7 @@ public class P44 {
 		for (int i = 1; i < p.length-1; i++) {
 			for (int j = i+1; j < p.length; j++) {
 				long d = p[j]-p[i];
-				if(d<min && binarySearch(p, d) && binarySearch(p,p[j]+p[i])){
+				if(d<min && isPenta(d) && isPenta(p[j]+p[i])){
 					min=d;
 					System.out.println("d= "+d);
 					continue;
@@ -31,6 +31,13 @@ public class P44 {
 		}
 		System.out.println(min);
 	}
+	static boolean isPenta(long num){
+	     float d=1+24*num;
+	     float n=(float) ((Math.sqrt(d)+1)/6);
+	     if((int)n!=n)
+	      return false;
+	     return true;
+	    }
 	public static boolean binarySearch(long p[],long n){
 		//System.out.println(n);
 		int t=p.length;
