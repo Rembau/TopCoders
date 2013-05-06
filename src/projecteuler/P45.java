@@ -14,13 +14,38 @@ public class P45 {
 	 * 
 	 */
 	public static void func(){
-		for (int i = 1; i<100000; i++) {
-			int n=i*(i+1)/2;
-			if(isHexagonal(n) && isPenta(n)){
+		int p=0;
+		int h=0;
+		long pn = pen(p);
+		long hn = hex(h);
+		for (int i = 286; i<100000; i++) {
+			long n=tri(i);
+			//System.out.println(n);
+			while(pn<n){
+				p++;
+				pn=pen(p);
+			}
+			if(pn!=n){
+				continue;
+			}
+			while(hn<n){
+				h++;
+				hn=hex(h);
+			}
+			if(hn==n){
 				System.out.println(n+" "+i);
-				//break;
+				break;
 			}
 		}
+	}
+	public static long tri(long n){
+		return n*(n+1)/2;
+	}
+	public static long pen(long n){
+		return n*(3*n-1)/2;
+	}
+	public static long hex(long n){
+		return n*(2*n-1);
 	}
 	public static boolean isTria(double num){
 		float d = (float) (1+8*num);
@@ -29,31 +54,11 @@ public class P45 {
 			return false;
 		return true;
 	}
-	public static boolean isHexagonal(double num){
-		float d = (float) (0.25+2*num);
-		float n = (float) ((Math.sqrt(d)+0.5)/2);
-		if ((int) n != n)
-			return false;
-		return true;
-	}
-	public static boolean isPenta(double num) {
-		double d = 1 + 24 * num;
-		double n = (float) ((Math.sqrt(d) + 1) / 6);
-		if ((int) n != n){
-			//System.out.println(n);
-			return false;
-		}
-		return true;
-	}
 
 	public static void main(String[] args) {
-		for (int i = 1; i < 10000; i++) {
-			int n = i*(i+1)/2 ;
-			if(!isTria(n)){
-				System.out.println(n+" = "+i);
-			}
-		}
+		long i =System.currentTimeMillis();
 		func();
+		System.out.println(System.currentTimeMillis()-i);
 	}
 
 }
