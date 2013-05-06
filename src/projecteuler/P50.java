@@ -16,14 +16,18 @@ public class P50 {
  */
 	public static void func(){
 		HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
-		boolean psb[] = generatePrime();
+		int limit = 1000;
+		boolean psb[] = generatePrime(limit);
+		
 		int ps[] = MathTool.generatePrime(100000);
-		System.out.println(ps[99999]);
+		for (int i = 1; ps[i]<1000; i++) {
+			//System.out.println(ps[i]);
+		}
 		int max=0;
-		for (int i = 0; ps[i] < 1000000; i++) {
+		for (int i = 0; ps[i] < limit; i++) {
 			int n = ps[i];
 			int j=i;
-			while(n<1000000){
+			while(n<limit){
 				if(!psb[n]){
 					int num =j-i+1;
 					if(map.containsKey(n)){
@@ -35,8 +39,9 @@ public class P50 {
 					}
 					if(num > max){
 						max=num;
-						System.out.println(max+" "+n+" "+i+" "+j);
+						System.out.println(num+" "+n+" "+i+" "+j);
 					}
+					
 				}
 				j++;
 				n+=ps[j];
@@ -49,22 +54,23 @@ public class P50 {
 		func();
 		System.out.println(System.currentTimeMillis()-i);
 	}
-	public static boolean[] generatePrime(){
-		int n = 1000000;
+	public static boolean[] generatePrime(int n){
 		boolean d[] = new boolean[n];
 		Arrays.fill(d, false);
 		for (int i = 4; i < n; i+=2) {
 			d[i]=true;        //把除了2的偶数都标记为丢弃
 		}
 		int x = (int) Math.sqrt(n);
-		for (int i = 3; i < x; i+=2) {
+		System.out.println(x);
+		for (int i = 3; i <= x; i+=2) {
 			if(!d[i]){			//如果没有标记则是素数
 				for (int j = i*i; j < n; j+=2*i) {  //小于i的倍数 在之前已经处理了，这里的i，j一定是奇数如果加上个i
 													//变为偶数，偶数直接可以跳过
-					d[j]=true;
+					d[j]=true; 
 				}
 			}
 		}
+		System.out.println(d[961]);
 		return d;
 	}
 }

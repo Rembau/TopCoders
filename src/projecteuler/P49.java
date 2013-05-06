@@ -91,7 +91,7 @@ public class P49 {
 			d[i]=true;        //把除了2的偶数都标记为丢弃
 		}
 		int x = (int) Math.sqrt(n);
-		for (int i = 3; i < x; i+=2) {
+		for (int i = 3; i <= x; i+=2) {
 			if(!d[i]){			//如果没有标记则是素数
 				for (int j = i*i; j < n; j+=2*i) {  //小于i的倍数 在之前已经处理了，这里的i，j一定是奇数如果加上个i
 													//变为偶数，偶数直接可以跳过
