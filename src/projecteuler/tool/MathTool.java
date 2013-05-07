@@ -76,6 +76,49 @@ public class MathTool {
 		return r;
 	}
 	/**
+	 * combination
+	 * 组合公式,支持大数据无溢出操作。
+	 */
+	public static long combination(int n,int r){
+		if(r==0){
+			return 1;
+		}
+		LinkedList<Integer> up = new LinkedList<Integer>();
+		LinkedList<Integer> up_f = new LinkedList<Integer>();
+		LinkedList<Integer> down = new LinkedList<Integer>();
+		LinkedList<Integer> down_f = new LinkedList<Integer>();
+		for (int i = n-r+1; i <= n; i++) {
+			up.add(i);
+		}
+		for (Integer integer : up) {
+			up_f.addAll(MathTool.getFactors(integer));
+		}
+		for (int i = 1; i <= r; i++) {
+			down.add(i);
+		}
+		for (Integer integer : down) {
+			down_f.addAll(MathTool.getFactors(integer));
+		}
+		LinkedList<Integer> rr = new LinkedList<Integer>();
+		for (Integer integer : down_f) {
+			if(up_f.remove(integer)){
+				rr.add(integer);
+			}
+		}
+		for (Integer integer : rr) {
+			down_f.remove(integer);
+		}
+		long u_n=1;
+		for (Integer integer : up_f) {
+			u_n*=integer;
+		}
+		long d_n=1;
+		for (Integer integer : down_f) {
+			d_n*=integer;
+		}
+		return u_n/d_n;
+	}
+	/**
 	 * 获得质因子
 	 */
 	public static LinkedList<Integer> getFactors(int num){
