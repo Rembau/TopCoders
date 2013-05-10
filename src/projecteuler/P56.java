@@ -1,62 +1,75 @@
 package projecteuler;
 
+import java.util.Arrays;
+
+import projecteuler.tool.MathTool;
+
 public class P56 {
 
 	/**
-	 * Let p(n) represent the number of different ways in which n coins can be separated into piles. 
-	 * For example, five coins can separated into piles in exactly seven different ways, so p(5)=7.
-	 * OOOOO
-	 * OOOO   O
-	 * OOO   OO
-	 * OOO   O   O
-	 * OO   OO   O
-	 * OO   O   O   O
-	 * O   O   O   O   O
-	 * Find the least value of n for which p(n) is divisible by one million.
+	 * Considering natural numbers of the form, a(b), where a, b<100, what is the maximum digital sum?
 	 */
-	static long r[][]=new long[50000][50000];
 	public static void func(){
-		long k =System.currentTimeMillis();	
-		for (int i = 8000; i < 100000; i++) {
-			System.out.print(i+" ");
-			System.out.println(System.currentTimeMillis()-k);
-			if(f(i,i)==0){
-				System.out.println(f(i,i)+" "+i);
-				break;
-			}
-			//System.out.println(f(i,i)+" "+i);
-		}
-	}
-	static long count=0;
-	public static long f(int remainder,int max){
-		//System.out.println(count++);
-		if(remainder==0){
-			//System.out.println("==========="+max);
-			return 1;
-		}
-		long c=0;
-		for (int i = max; i > 0; i--) {
-			int rem=remainder-i;
-			if(rem>=0){
-				if(r[rem][i]==0){
-					//System.out.println(i+" "+(rem));
-					if(i>rem)
-						r[rem][i]=f(rem,rem);
-					else{
-						r[rem][i]=f(rem,i);
-					}
+		int max=0;
+		for (int i = 1; i < 100; i++) {
+			int ds[];
+			int num[] = getArrayForInt(i);
+			ds = Arrays.copyOf(num, 200);
+			int index = num.length;
+			for (int j = 1; j < 100; j++) {
+				/*for (int j2 = 0; j2 < ds.length; j2++) {
+					System.out.print(ds[j2]);
 				}
-				c+=r[rem][i];
+				System.out.println();*/
+				int sum = getdsum(ds,index);
+				max=sum>max?sum:max;
+				ds = multiply(ds,num);
 			}
 		}
-		return c%1000000;
-		//return c;
+		System.out.println(max);
+	}
+	static int[] multiply(int ds[],int num[]){
+		int line[][] = new int[num.length][ds.length+1];
+		for (int i = 0; i < line.length; i++) {
+			int u=num[i];
+			int remainder=0;
+			for (int j = 0; j < ds.length; j++) {
+				int tem = u*ds[j];
+				line[i][i+j]=tem%10+remainder;
+				remainder=tem/10;
+			}
+		}
+		int remainder =0;
+		for (int i = 0; i < ds.length; i++) {
+			int sum=remainder;
+			for (int j = 0; j < line.length; j++) {
+				sum+=line[j][i];
+			}
+			ds[i]=sum%10;
+			remainder=sum/10;
+		}
+		return ds;
+	}
+	static int[] getArrayForInt(int i){
+		int num[] = new int[MathTool.getDigitNum(i)];
+		int tem=i;
+		for (int k = 0; k < num.length; k++) {
+			num[k]=tem%10;
+			tem/=10;
+		}
+		return num;
+	}
+	static int getdsum(int ds[],int index){
+		int sum=0;
+		for (int i = 0; i < ds.length; i++) {
+			sum+=ds[i];
+		}
+		return sum;
 	}
 	public static void main(String[] args) {
-		//func();
-	
 		long i =System.currentTimeMillis();
 		func();
 		System.out.println(System.currentTimeMillis()-i);
 	}
+
 }
