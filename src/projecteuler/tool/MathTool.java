@@ -140,9 +140,21 @@ public class MathTool {
 	 * 求得数字的位数
 	 */
 	public static int getDigitNum(int num){
+		if(num==0){
+			return 1;
+		}
 		return (int) Math.floor(Math.log10(num)+1);
 	}
 	public static int getDigitNum(long num){
+		if(num==0){
+			return 1;
+		}
+		return (int) Math.floor(Math.log10(num)+1);
+	}
+	public static int getDigitNum(double num){
+		if(num==0){
+			return 1;
+		}
 		return (int) Math.floor(Math.log10(num)+1);
 	}
 	/**
