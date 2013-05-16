@@ -142,6 +142,9 @@ public class MathTool {
 	public static int getDigitNum(int num){
 		return (int) Math.floor(Math.log10(num)+1);
 	}
+	public static int getDigitNum(long num){
+		return (int) Math.floor(Math.log10(num)+1);
+	}
 	/**
 	 * 判断是否是回文
 	 */
