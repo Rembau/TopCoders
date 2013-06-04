@@ -1,6 +1,7 @@
 package projecteuler.tool;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 public class MathTool {
@@ -123,6 +124,21 @@ public class MathTool {
 	 */
 	public static LinkedList<Integer> getFactors(int num){
 		LinkedList<Integer> f = new LinkedList<Integer>();
+		int i=2;
+		while(num>=i){
+			//System.out.println(num);
+			while(num%i==0){
+				num=num/i;
+				//System.out.print(" "+i);
+				f.add(i);
+			}
+			i++;
+		}
+		//System.out.println();
+		return f;
+	}
+	public static HashSet<Integer> getNoRepeatFactors(int num){
+		HashSet<Integer> f = new HashSet<Integer>();
 		int i=2;
 		while(num>=i){
 			//System.out.println(num);

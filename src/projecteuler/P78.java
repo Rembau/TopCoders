@@ -20,7 +20,7 @@ public class P78 {
 	 *  m=n		f(n,m-1)+1
 	 *  m<n		f(n,m-1)+f(n-m,m)
 	 */
-	static int len=50;
+	static int len=30000;
 	static int r[][]=new int[len][len/2+1];
 	static HashMap<Integer,HashMap<Integer,Integer>> record= new HashMap<Integer,HashMap<Integer,Integer>>();
 	static int mark=0;
@@ -59,10 +59,10 @@ public class P78 {
 			if(record.get(n+m-1).get(n)==null){
 				t1=f2(n,m-1,1);
 				record.get(n+m-1).put(n, t1);
-				System.out.println("2 "+(n)+" "+(m-1)+" ");
+				//System.out.println("2 "+(n)+" "+(m-1)+" ");
 			} else{
 				t1=record.get(n+m-1).get(n);
-				System.out.println("2 "+n+" "+(m-1)+" "+t1);
+				//System.out.println("2 "+n+" "+(m-1)+" "+t1);
 			}
 		} else{
 			t1 = f2(n,m-1,1);
@@ -71,11 +71,11 @@ public class P78 {
 			//System.out.println("1 "+(n)+" "+m+" ");
 			if(record.get(n).get(m)==null){
 				t2=f2(n-m,m,1);
-				System.out.println("1 "+(n-m)+" "+m+" ");
+				//System.out.println("1 "+(n-m)+" "+m+" ");
 				record.get(n).put(m, t2);
 			} else {
 				t2=record.get(n).get(m);
-				System.out.println("1 "+(n-m)+" "+m+" "+t2);
+				//System.out.println("1 "+(n-m)+" "+m+" "+t2);
 			}
 		} else {
 			t2=f2(n-m,m,1);
@@ -89,7 +89,7 @@ public class P78 {
 			return 1;
 		}
 		if(m>n){
-			System.out.println("3-"+n);
+			//System.out.println("3-"+n);
 			return map.get(new Integer(n));
 		} else if(m==n){
 			return 1+f1(n,n-1,1);
@@ -100,9 +100,9 @@ public class P78 {
 			if(r[n][m-1]==0){
 				t1=f1(n,m-1,1);
 				r[n][m-1]=t1;
-				System.out.println("2-"+(n)+" "+(m-1)+" ");
+				//System.out.println("2-"+(n)+" "+(m-1)+" ");
 			} else{
-				System.out.println("2-"+n+" "+(m-1)+"="+r[n][m-1]);
+				//System.out.println("2-"+n+" "+(m-1)+"="+r[n][m-1]);
 				t1=r[n][m-1];
 			}
 		} else{
@@ -111,10 +111,10 @@ public class P78 {
 		if(m<=len/2){
 			if(r[n-m][m]==0){
 				t2=f1(n-m,m,1);
-				System.out.println("1-"+(n-m)+" "+m+" ");
+				//System.out.println("1-"+(n-m)+" "+m+" ");
 				r[n-m][m]=t2;
 			} else {
-				System.out.println("1-"+(n-m)+" "+m+"="+r[n-m][m]);
+				//System.out.println("1-"+(n-m)+" "+m+"="+r[n-m][m]);
 				t2=r[n-m][m];
 			}
 		} else {
