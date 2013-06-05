@@ -29,7 +29,7 @@ public class P72 {
 5000 7600457
  */ 
 	static int ps[];
-	static 	int n = 420;
+	static 	int n = 5000;
 	public static void func(){
 		long count=n-1;
 		//HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
@@ -52,11 +52,15 @@ public class P72 {
 					int num = list2.get(integer);
 					if(num == 2){
 						tem -= (n-i)/integer;
+					} else if(num==3){
+						num = num-1-getNum1(num,2);
+						System.out.println("num="+num);
+						tem -= (((n-i)/integer)*num);
 					} else {
 						//3 num=getNum1(num,1)-1-getnum1(num,2);
-						//4 num=getNum1(num,1)-1-getnum1(num,2)-getnum1(num,3);
-						//5 num=getNum1(num,1)-1
-						num = num-1-getNum(num);
+						//4 num=getNum1(num,1)-1-getnum1(num,2) - getnum1(num,3)*num3;
+						//5 num=getNum1(num,1)-1-getnum1(num,2) - getnum1(num,4)*num4 - getnum1(num,3)*num3
+						num = num-1-getNum1(num,2)-getN(num,num);
 						System.out.println("num="+num);
 						tem -= (((n-i)/integer)*num);
 					}
@@ -71,11 +75,14 @@ public class P72 {
 		System.out.println(count);
 	}
 	public static int getN(int num,int i){
-		if(i==2){
-			return 0;
+		if(i==3){
+			return -1;
 		}
-		int n = getNum1(i,0);
-		return getN2(i)-n-getN(num,i-1);
+		int tem = 0;
+		for (int j = num-1; j >= 3; j--) {
+			tem+=getNum1(num,j)*getN(j,j);
+		}
+		return tem;
 	}
 	public static int getN2(int num){
 		return num*(num-1)/2;
