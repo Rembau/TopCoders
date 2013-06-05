@@ -29,25 +29,138 @@ public class P72 {
 5000 7600457
  */ 
 	static int ps[];
+	static 	int n = 420;
 	public static void func(){
-		int n = 8;
-		long count=0;
+		long count=n-1;
 		//HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
-		HashSet<Integer> r = new HashSet<Integer>();
-		for (int i = 2; i <= n; i++) {
-			/*HashSet<Integer> list = MathTool.getNoRepeatFactors(i);
+		for (int i = 2; i < n; i++) {
+			HashSet<Integer> list = MathTool.getNoRepeatFactors(i);
 			int tem=0;
 			for (Integer integer : list) {
-				tem += n/integer;
-			}*/
-			int tem = n/i;
-			System.out.println(i+" "+tem+" ");
-			count+=(n-i-tem+1);
+				tem += (n-i)/integer;
+			}
+			System.out.println(tem);
+			if(list.size()>=2){
+				LinkedList<Integer> list_ = new LinkedList<Integer>(list);
+				HashMap<Integer,Integer> list2 = new HashMap<Integer,Integer>();
+				for (int j = 0; j < list.size(); j++) {
+					int num = list_.get(j);
+					f5(list2,list_,num,j+1,2);
+				}
+				System.out.println("list2="+list2);
+				for (Integer integer : list2.keySet()) {
+					int num = list2.get(integer);
+					if(num == 2){
+						tem -= (n-i)/integer;
+					} else {
+						//3 num=getNum1(num,1)-1-getnum1(num,2);
+						//4 num=getNum1(num,1)-1-getnum1(num,2)-getnum1(num,3);
+						//5 num=getNum1(num,1)-1
+						num = num-1-getNum(num);
+						System.out.println("num="+num);
+						tem -= (((n-i)/integer)*num);
+					}
+				}
+			}
+			System.out.println(tem);
+			tem = (n-i)-tem;
+			System.out.println("i==="+i+" "+tem+" "+list);
+			
+			count+=tem;
 		}
 		System.out.println(count);
 	}
+	public static int getN(int num,int i){
+		if(i==2){
+			return 0;
+		}
+		int n = getNum1(i,0);
+		return getN2(i)-n-getN(num,i-1);
+	}
+	public static int getN2(int num){
+		return num*(num-1)/2;
+	}
+	public static int getNum1(int num,int d) {
+		int sum=0;
+		int num1=1;
+		int num2=1;
+		for (int j = 0; j < d; j++) {
+			num1*=(num-j);
+			num2*=(j+1);
+		}
+			//System.out.println("num1/num2="+num1/num2);
+		sum=(num1/num2);
+		return sum;
+	}
+	public static int getNum(int num) {
+		int sum=num*(num-1)/2;
+		for (int i = 3; i < num; i++) {
+			int num1=1;
+			int num2=1;
+			for (int j = 0; j < i; j++) {
+				num1*=(num-j);
+				num2*=(j+1);
+			}
+			//System.out.println("num1/num2="+num1/num2);
+			sum-=(num1/num2);
+		}
+		return sum;
+	}
+	public static HashSet<Integer> f3(LinkedList<Integer> list){
+		HashSet<Integer> list_ = new HashSet<Integer>();
+		for (int i = 0; i < list.size(); i++) {
+			for (int j = i+1; j < list.size(); j++) {
+				list_.add(list.get(i)*list.get(j));
+			}
+		}
+		return list_;
+	}
+	public static void f5(HashMap<Integer,Integer> list_,LinkedList<Integer> list,int product,int index,int c){
+		
+		if(index>list.size()){
+			return ;
+		}
+		//System.out.println("index="+index);
+		for (int i = index; i < list.size(); i++) {
+			int num = list.get(i);
+			int pp = product*num;
+			//System.out.println("pp="+pp);
+			list_.put(pp, c);
+	
+			f5(list_,list,pp,i+1,c+1);
+		}
+	}
+	public static void f4(HashSet<Integer> list_,LinkedList<Integer> list,int product,int index){
+		
+		if(index>list.size()){
+			return ;
+		}
+		System.out.println("index="+index);
+		for (int i = index; i < list.size(); i++) {
+			int num = list.get(i);
+			int pp = product*num;
+			System.out.println("pp="+pp);
+			list_.add(pp);
+			f4(list_,list,pp,i+1);
+		}
+	}
+	public static int f2(LinkedList<Integer> list,int product,int index){
+		System.out.println("product="+product);
+		if(index>=list.size() || product>n){
+			return 0;
+		}
+		int count=0;
+		for (int i = index; i < list.size(); i++) {
+			int num = list.get(i);
+			int pp = product*num;
+			if(pp<=n){
+				count++;
+			}
+			count+=f2(list,pp,i++);
+		}
+		return count;
+	}
 	public static void general(){
-		int n = 8;
 		long count=0;
 		boolean p[] = generatePrime(n+1);
 		for (int i = 2; i <= n; i++) {
@@ -132,7 +245,39 @@ public class P72 {
 	public static void main(String[] args) {
 		long i =System.currentTimeMillis();
 		func();
+		general();
+		System.out.println(getN(3,3));
 		System.out.println(System.currentTimeMillis()-i);
 	}
 
 }
+/*if(list.size()>=2){
+LinkedList<Integer> list_ = new LinkedList<Integer>(list);
+HashSet<Integer> list2 = new HashSet<Integer>();
+for (int j = 0; j < list.size(); j++) {
+	int num = list_.get(j);
+	f4(list2,list_,num,j+1);
+}
+System.out.println("list2="+list2);
+for (Integer integer : list2) {
+	tem -= (n-i)/integer;
+}
+}*/
+/*if(list.size()>=2){
+LinkedList<Integer> list_ = new LinkedList<Integer>(list);
+list = f3(list_);
+for (Integer integer : list) {
+	tem -= (n-i)/integer;
+}
+}*/
+
+/*if(list.size()>=2){
+LinkedList<Integer> list_ = new LinkedList<Integer>(list);
+int t=0;
+for (int j = 0; j < list.size(); j++) {
+	int num = list_.get(j);
+	t += f2(list_,num,j+1);
+}
+System.out.println("t="+t);
+tem-=t;
+}*/
