@@ -229,6 +229,26 @@ public class MathTool {
 		}
 		return false;
 	}
+	/**
+	 * Å·À­¹«Ê½
+	 */
+	public static int euler(LinkedList<Integer> list,int n){
+		int r =1;
+		for (Integer integer : list) {
+			n/=integer;
+			r*=(integer-1);
+		}
+		return n*r;
+	}
+	
+	public static int euler(HashSet<Integer> list,int n){
+		int r =1;
+		for (Integer integer : list) {
+			n/=integer;
+			r*=(integer-1);
+		}
+		return n*r;
+	}
 	public static void main(String[] args) {
 
 	}
