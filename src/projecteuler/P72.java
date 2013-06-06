@@ -29,17 +29,30 @@ public class P72 {
 5000 7600457
  */ 
 	static int ps[];
-	static 	int n = 5000;
+	static 	int n = 200000;
+	static HashMap<Integer,Integer> mapTemN = new HashMap<Integer,Integer>();
 	public static void func(){
 		long count=n-1;
-		//HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+		
 		for (int i = 2; i < n; i++) {
+			if(i%1000==0){
+				System.out.println(i);
+			}
+			
+			long ii =System.currentTimeMillis();
+			long jj=0;
+			
 			HashSet<Integer> list = MathTool.getNoRepeatFactors(i);
 			int tem=0;
+			int rem = n-i;
 			for (Integer integer : list) {
-				tem += (n-i)/integer;
+				tem += rem/integer;
 			}
-			System.out.println(tem);
+			
+			jj= System.currentTimeMillis()-ii;
+			System.out.println("1 "+jj);
+			
+			//System.out.println(tem);
 			if(list.size()>=2){
 				LinkedList<Integer> list_ = new LinkedList<Integer>(list);
 				HashMap<Integer,Integer> list2 = new HashMap<Integer,Integer>();
@@ -47,28 +60,34 @@ public class P72 {
 					int num = list_.get(j);
 					f5(list2,list_,num,j+1,2);
 				}
-				System.out.println("list2="+list2);
+				
+				jj= System.currentTimeMillis()-ii;
+				System.out.println("2 "+jj);
+				
+				//System.out.println("list2="+list2);
 				for (Integer integer : list2.keySet()) {
 					int num = list2.get(integer);
 					if(num == 2){
-						tem -= (n-i)/integer;
-					} else if(num==3){
-						num = num-1-getNum1(num,2);
-						System.out.println("num="+num);
-						tem -= (((n-i)/integer)*num);
+						tem -= rem/integer;
 					} else {
-						//3 num=getNum1(num,1)-1-getnum1(num,2);
-						//4 num=getNum1(num,1)-1-getnum1(num,2) - getnum1(num,3)*num3;
-						//5 num=getNum1(num,1)-1-getnum1(num,2) - getnum1(num,4)*num4 - getnum1(num,3)*num3
-						num = num-1-getNum1(num,2)-getN(num,num);
-						System.out.println("num="+num);
-						tem -= (((n-i)/integer)*num);
+						//3 num=getNum1(3,1)-1-getnum1(3,2);
+						//4 num=getNum1(4,1)-1-getnum1(4,2) - getnum1(4,3)*num3;
+						//5 num=getNum1(5,1)-1-getnum1(5,2) - getnum1(5,3)*num3 - getnum1(5,4)*num4
+						num = getN(num,num);
+						mapTemN.put(num, num);
+						//num=getNum1(num,1)-1-getNum(num);
+						//System.out.println("num="+num);
+						tem -= ((rem/integer)*num);
 					}
 				}
+
+				jj= System.currentTimeMillis()-ii;
+				System.out.println("3 "+jj);
+				
 			}
-			System.out.println(tem);
-			tem = (n-i)-tem;
-			System.out.println("i==="+i+" "+tem+" "+list);
+			//System.out.println(tem);
+			tem = rem-tem;
+			//System.out.println("i==="+i+" "+tem+" "+list);
 			
 			count+=tem;
 		}
@@ -82,7 +101,7 @@ public class P72 {
 		for (int j = num-1; j >= 3; j--) {
 			tem+=getNum1(num,j)*getN(j,j);
 		}
-		return tem;
+		return getNum1(i,1)-1-getNum1(i,2)-tem;
 	}
 	public static int getN2(int num){
 		return num*(num-1)/2;
@@ -252,8 +271,8 @@ public class P72 {
 	public static void main(String[] args) {
 		long i =System.currentTimeMillis();
 		func();
-		general();
-		System.out.println(getN(3,3));
+		//general();
+		//System.out.println(getN(3,3));
 		System.out.println(System.currentTimeMillis()-i);
 	}
 
