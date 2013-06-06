@@ -1,7 +1,6 @@
 package projecteuler;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -27,31 +26,98 @@ public class P72 {
 4000 4863601
 4500 6155995
 5000 7600457
+
+here have four solutions. general(forever),func(five mins),func1(800ms),func1euler(130ms)
+func(five mins),func1(800ms), 是判断1到N 中的每一个数，能把其当做分子的分母数。
+func1euler(130ms) 是判断每一个N 可以把多少个数当做分子。
  */ 
 	static int ps[];
-	static 	int n = 200000;
+	static 	int n = 1000000;
 	static HashMap<Integer,Integer> mapTemN = new HashMap<Integer,Integer>();
-	public static void func(){
-		long count=n-1;
-		
-		for (int i = 2; i < n; i++) {
-			if(i%1000==0){
-				System.out.println(i);
+	static long count1=n-1;
+	public static void func1(){
+		ps = MathTool.generatePrime(100001);
+		int mn=0;
+		int mtem =1;
+		while((mtem*=2)<n){
+			mn++;
+		}
+		for (int i = 3; i <= mn; i++) {
+			mapTemN.put(i, getN(i,i));
+		}
+		func11(new LinkedList<Integer>(),0);
+		System.out.println(count1);
+	}
+	public static void func11(LinkedList<Integer> list,int index){
+		long product =1;
+		for (Integer integer : list) {
+			product*=integer;
+		}
+
+		for (int i = index; i < ps.length; i++) {
+			long tem = product*ps[i];
+			if(tem<n){
+				list.add(ps[i]);
+				//System.out.println("f11 tem"+tem);
+				LinkedList<Integer> list_ = new LinkedList<Integer>(list);
+				HashMap<Integer,Integer> list2 = new HashMap<Integer,Integer>();
+				for (int j = 0; j < list.size(); j++) {
+					int num = list_.get(j);
+					f5(list2,list_,num,j+1,2);
+				}
+				//System.out.println("list="+list+"\nlist2="+list2);
+				func111(list,list2,(int) tem,0);
+				
+				func11(list,i+1);
+				list.remove(new Integer(ps[i]));
+			} else{
+				break;
 			}
-			
-			long ii =System.currentTimeMillis();
-			long jj=0;
-			
+		}
+		
+	}
+	public static void func111(LinkedList<Integer> list,HashMap<Integer,Integer> list2,long product,int index){
+		//System.out.print("当前i="+product);
+		int tem=0;
+		int rem = (int)(n-product);
+		for (Integer integer : list) {
+			tem += rem/integer;
+		}
+		if(list.size()>=2){
+			for (Integer integer : list2.keySet()) {
+				int num = list2.get(integer);
+				if(num == 2){
+					tem -= rem/integer;
+				} else {
+					num = mapTemN.get(num);
+					tem -= ((rem/integer)*num);
+				}
+			}
+		}
+		tem = rem-tem;
+		//System.out.print(" "+tem);
+		//System.out.println();
+		count1+=tem;
+		//System.out.println(list);
+		for (int i=index;i<list.size();i++) {
+			long tem1 = product*list.get(i);
+			//System.out.println(tem1+" "+integer);
+			if(tem1 >= n){
+				break;
+			}
+			func111(list,list2,tem1,i);
+		}
+	}
+	static long count=n-1;
+	
+	public static void func(){
+		for (int i = 2; i < n; i++) {
 			HashSet<Integer> list = MathTool.getNoRepeatFactors(i);
 			int tem=0;
 			int rem = n-i;
 			for (Integer integer : list) {
 				tem += rem/integer;
 			}
-			
-			jj= System.currentTimeMillis()-ii;
-			System.out.println("1 "+jj);
-			
 			//System.out.println(tem);
 			if(list.size()>=2){
 				LinkedList<Integer> list_ = new LinkedList<Integer>(list);
@@ -60,9 +126,6 @@ public class P72 {
 					int num = list_.get(j);
 					f5(list2,list_,num,j+1,2);
 				}
-				
-				jj= System.currentTimeMillis()-ii;
-				System.out.println("2 "+jj);
 				
 				//System.out.println("list2="+list2);
 				for (Integer integer : list2.keySet()) {
@@ -75,15 +138,9 @@ public class P72 {
 						//5 num=getNum1(5,1)-1-getnum1(5,2) - getnum1(5,3)*num3 - getnum1(5,4)*num4
 						num = getN(num,num);
 						mapTemN.put(num, num);
-						//num=getNum1(num,1)-1-getNum(num);
-						//System.out.println("num="+num);
 						tem -= ((rem/integer)*num);
 					}
 				}
-
-				jj= System.currentTimeMillis()-ii;
-				System.out.println("3 "+jj);
-				
 			}
 			//System.out.println(tem);
 			tem = rem-tem;
@@ -91,7 +148,7 @@ public class P72 {
 			
 			count+=tem;
 		}
-		System.out.println(count);
+		System.out.println("func()="+count);
 	}
 	public static int getN(int num,int i){
 		if(i==3){
@@ -114,7 +171,7 @@ public class P72 {
 			num1*=(num-j);
 			num2*=(j+1);
 		}
-			//System.out.println("num1/num2="+num1/num2);
+		//System.out.println("num1/num2="+num1/num2);
 		sum=(num1/num2);
 		return sum;
 	}
@@ -229,81 +286,67 @@ public class P72 {
 		}
 		return d;
 	}
-	public static void ff(){
-		int count=0;
-		int d = 5000;
-		int n[] = new int[d+1];
-		for (int i = 2; i <= d; i++) {
-			n[i]=i;
-		}
-		ps = MathTool.generatePrime(100001);
-		System.out.println(ps[100001]);
-		for (int i = 0; ps[i] < d; i++) {
-			for (int j = 2; j <= d; j++) {
-				if(j%ps[i]==0){
-					n[j]-=j/ps[i];
-					//System.out.println(j+"rem"+j/ps[i]);
-				}
+	public static void funceuler(){
+		long count=0;
+		for (int i = 2; i <= n; i++) {
+			if(i%1000==0){
+				System.out.println(i);
 			}
-		}
-		System.out.println(new Date());
-		for (int i = 0; ps[i] <= d; i++) {
-			int tem = ps[i+1]*ps[i];
-			for (int j = i+2; 0 <tem && tem <= d; j++) {
-				n[tem]++;
-				tem = ps[j]*ps[i];
-			}
-		}
-		for (int i = 2; i < n.length; i++) {
-			count+=n[i];
-			System.out.println(i+" "+n[i]);
+			count+=MathTool.euler(MathTool.getNoRepeatFactors(i), i);
 		}
 		System.out.println(count);
 	}
-	public static int f(int n){
-		for (int i = 0; i < ps.length; i++) {
-			if(n<ps[i]){
-				return i-1;
+	static long counteuler=0;
+	public static void func1euler(){
+		func11euler(new LinkedList<Integer>(),0);
+		System.out.println(counteuler);
+	}
+	public static void func11euler(LinkedList<Integer> list,int index){
+		long product =1;
+		for (Integer integer : list) {
+			product*=integer;
+		}
+
+		for (int i = index; i < ps.length; i++) {
+			long tem = product*ps[i];
+			if(tem<n){
+				list.add(ps[i]);
+				func111euler(list,(int) tem,0);
+				
+				func11euler(list,i+1);
+				list.remove(new Integer(ps[i]));
+			} else{
+				break;
 			}
 		}
-		return 0;
+		
+	}
+	public static void func111euler(LinkedList<Integer> list,long product,int index){
+		//System.out.print("当前i="+product);
+		//System.out.print(" "+tem);
+		//System.out.println();
+		int tem=MathTool.euler(list, (int) product);
+		counteuler+=tem;
+		//System.out.println(list);
+		for (int i=index;i<list.size();i++) {
+			long tem1 = product*list.get(i);
+			//System.out.println(tem1+" "+integer);
+			if(tem1 >= n){
+				break;
+			}
+			func111euler(list,tem1,i);
+		}
 	}
 	public static void main(String[] args) {
 		long i =System.currentTimeMillis();
-		func();
 		//general();
-		//System.out.println(getN(3,3));
+		func1();
+		count=n-1; 
+		System.out.println(System.currentTimeMillis()-i);
+		System.out.println("-----------------分割线---------------------");
+		i =System.currentTimeMillis();
+		func1euler();
+		//func();
 		System.out.println(System.currentTimeMillis()-i);
 	}
-
 }
-/*if(list.size()>=2){
-LinkedList<Integer> list_ = new LinkedList<Integer>(list);
-HashSet<Integer> list2 = new HashSet<Integer>();
-for (int j = 0; j < list.size(); j++) {
-	int num = list_.get(j);
-	f4(list2,list_,num,j+1);
-}
-System.out.println("list2="+list2);
-for (Integer integer : list2) {
-	tem -= (n-i)/integer;
-}
-}*/
-/*if(list.size()>=2){
-LinkedList<Integer> list_ = new LinkedList<Integer>(list);
-list = f3(list_);
-for (Integer integer : list) {
-	tem -= (n-i)/integer;
-}
-}*/
-
-/*if(list.size()>=2){
-LinkedList<Integer> list_ = new LinkedList<Integer>(list);
-int t=0;
-for (int j = 0; j < list.size(); j++) {
-	int num = list_.get(j);
-	t += f2(list_,num,j+1);
-}
-System.out.println("t="+t);
-tem-=t;
-}*/
