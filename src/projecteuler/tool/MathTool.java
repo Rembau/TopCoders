@@ -242,12 +242,22 @@ public class MathTool {
 	}
 	
 	public static int euler(HashSet<Integer> list,int n){
-		int r =1;
 		for (Integer integer : list) {
 			n/=integer;
-			r*=(integer-1);
+			n*=(integer-1);
 		}
-		return n*r;
+		return n;
+	}
+	/**
+	 * 欧几里得求最大公约数公式
+	 */
+	public static int gcd(int o,int d){
+		int c=0;
+		for(c = d % o ; c >0 ; c = d % o){
+			d = o;
+			o = c;
+		}
+		return o;
 	}
 	public static void main(String[] args) {
 
