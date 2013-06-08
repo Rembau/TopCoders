@@ -12,20 +12,24 @@ public class P74 {
 			fac[i]=pro;
 			pro*=(i+1);
 		}
-		System.out.println(fac(145));
 		HashMap<Integer,Integer> m2 = new HashMap<Integer,Integer>();
-		m2.put(169, 2);
-		m2.put(363601 , 2);
-		m2.put(1454 , 2);
-		m2.put(871  , 1);
-		m2.put(45361  , 1);
-		m2.put(872  , 1);
-		m2.put(45362  , 1);
+		m2.put(169, 3);
+		m2.put(363601 , 3);
+		m2.put(1454 , 3);
+		m2.put(871  , 2);
+		m2.put(45361  , 2);
+		m2.put(872  , 2);
+		m2.put(45362  , 2);
 		for (int i = 1; i <= n; i++) {
-			int tem = i;
+			int tem = fac(i);
+			if(tem==i){
+				m2.put(tem, 0);
+				continue;
+			}
 			//System.out.println(i+" "+tem);
 			HashMap<Integer,Integer> m1 = new HashMap<Integer,Integer>();
 			int count=1;
+			
 			while(!m2.keySet().contains(tem)){
 				count++;
 				m1.put(tem, 0);
@@ -34,8 +38,8 @@ public class P74 {
 				}
 				int tem2 = fac(tem);
 				if(tem == tem2){
-					m2.put(tem, 0);
-					m1.put(tem, 0);
+					m2.put(tem, 1);
+					m1.put(tem, 1);
 					//System.out.println(tem+" 0");
 					break;
 				}
