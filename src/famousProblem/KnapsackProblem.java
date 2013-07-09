@@ -3,6 +3,11 @@ package famousProblem;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+/**
+ * 0-1 ±³°üÎÊÌâ
+ * @author Rembau
+ *
+ */
 public class KnapsackProblem {
 	public static int maxWeight=10;
 	public static int maxValue=0;
