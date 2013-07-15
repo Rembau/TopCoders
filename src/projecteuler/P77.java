@@ -20,7 +20,7 @@ What is the first value which can be written as the sum of primes in over five t
 使用二维数组记录，当前余数N1，与不大于的质数N2 ，nums[N1][N2]表示由不大于N2的质数相加可得N1的 质数组数
 求4到N的结果，在求每一个n的时候在二维数组中记录，当前质数为N3，组数为n3时，nums[n<=n.<N][N3]+=n3
 */
-	static int n=72;
+	static int n=11;
 	static int nums[][] = new int[n][n];
 	public static void func(){
 		for (int i = 2; i < n; i++) {
@@ -32,6 +32,7 @@ What is the first value which can be written as the sum of primes in over five t
 		}
 		for (int i = 4; i < nums.length; i++) {
 			int r = f(i);
+			System.out.println("============="+i+" "+r);
 			if(r>5000){
 				System.out.println("============="+i+" "+r);
 				break;
@@ -45,14 +46,14 @@ What is the first value which can be written as the sum of primes in over five t
 				if(nums[num-i][i]==0)
 					continue;
 				count+=nums[num-i][i];
-				//nums[num][i]+=nums[i][num-i];
+				nums[num][i]+=nums[i][num-i];
 				for (int j = i; j < n; j++) {
 					nums[num][j]+=nums[num-i][i];
-					//System.out.print(num+" "+j+"="+nums[num][j]+",");
+					System.out.print(num+" "+j+"="+nums[num][j]+",");
 				}
-				//System.out.print(nums[num-i][i]);
-				//System.out.println();
-				//System.out.println((num-i)+" "+i+" "+nums[num-i][i]);
+				System.out.print(nums[num-i][i]);
+				System.out.println();
+				System.out.println((num-i)+" "+i+" "+nums[num-i][i]);
 			}
 		}
 		return count;
