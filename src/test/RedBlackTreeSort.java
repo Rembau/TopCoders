@@ -17,7 +17,7 @@ public class RedBlackTreeSort {
 	static int size;
 	static String blank = "-";
 	public static void func(){
-		int num[] = new int[]{3,900000,7,5,2,6,4,8,17,9,16,20,59,37,78};
+		int num[] = new int[]{3,10,7,5,2,6,4,8,17,9,16,20,59,37,780};
 		top = new node(num[0],1);
 		list.add(top);
 		for (int i = 1; i < num.length; i++) {
@@ -25,13 +25,13 @@ public class RedBlackTreeSort {
 		}
 		LinkedList<node> readyList = new LinkedList<node>();
 		Collections.sort(list);
-		size = (int) Math.ceil(Math.log10(list.get(0).value));
+		size = (int) Math.floor(Math.log10(list.get(0).value)+1);
 		//ÓÉÉÏÍùÏÂ»­
 		for (int i = 0; i < num.length; i++) {
 			node node = list.get(i);
 			String line[] = null;
 			int num_side;
-			int tem = (int) (size - Math.ceil(Math.log10(node.value)));
+			int tem = (int) (size - Math.floor(Math.log10(node.value)+1));
 			num_side=(node.level-1)*size+(node.level-1)*3+tem;
 			if(node.level==1){
 				node.secend = num_side+2;
