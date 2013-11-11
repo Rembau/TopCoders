@@ -26,21 +26,21 @@ public class EightQueenProblem {
 	public static void f(int line){
 		if(line == 8){
 			count++;
-			//p();
+			p();
 			return;
 		}
 		for (int i = 0; i < board.length; i++) {
 			if(board[line][i]==1){
 				continue;
 			}
-			//Integer[] in = new Integer[]{line,i};
-			//queens.add(in);
+			Integer[] in = new Integer[]{line,i};
+			queens.add(in);
 			LinkedList<Integer[]> list = avoidAttack(line,i);
 			for (Integer[] integers : list) {
 				board[integers[0]][integers[1]]=1;
 			}
 			f(line+1);
-			//queens.remove(in);
+			queens.remove(in);
 			for (Integer[] integers : list) {
 				board[integers[0]][integers[1]]=0;
 			}
