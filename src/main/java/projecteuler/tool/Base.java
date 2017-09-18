@@ -13,6 +13,7 @@ public class Base {
 
     @After
     public void after() {
-        System.out.println("鑺辫垂鏃堕棿" + (System.nanoTime()-start)/1000.0);
+        long n = System.nanoTime() - start;
+        System.out.println("花费时间" + n + " ns，" + n/1000000 +" ms");
     }
 }
