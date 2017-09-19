@@ -14,6 +14,6 @@ public class Base {
     @After
     public void after() {
         long n = System.nanoTime() - start;
-        System.out.println("花费时间" + n + " ns，" + n/1000000 +" ms");
+        System.out.println("花费时间" + n + " ns，" + n/1000000 +" ms，" + n/1000000000.0 + " s");
     }
 }

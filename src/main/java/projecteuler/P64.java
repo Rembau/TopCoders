@@ -11,7 +11,7 @@ public class P64 extends Base {
     public void f1() throws InterruptedException {
         int num = 0;
         for (int i = 2;i <= 10000; i++) {
-            System.out.println("====" + i);
+            //System.out.println("====" + i);
             int cycleNum = f1_2(i);
             if (cycleNum % 2 == 1) {
                 num ++;
@@ -24,7 +24,7 @@ public class P64 extends Base {
     private int f1_2(int num) {
 
         int[] first = first(num);
-        System.out.println(Arrays.toString(first));
+        //System.out.println(Arrays.toString(first));
 
         int bMax  = first[1];
 
@@ -32,7 +32,7 @@ public class P64 extends Base {
         int b = first[1];
         int c = first[2];
 
-        System.out.println(a);
+        //System.out.println(a);
 
         int an=0;
         int bn=0;
@@ -62,7 +62,7 @@ public class P64 extends Base {
             }
             i++;
         }
-        System.out.println(i-1);
+        //System.out.println(i-1);
         return i - 1;
     }
 
